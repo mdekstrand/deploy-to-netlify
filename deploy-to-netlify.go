@@ -41,7 +41,7 @@ func main() {
 
 	deploy, err := n.DeploySite(ctx, deploy_req)
 	if err != nil {
-		log.Fatalln(err)
+		log.Fatalf("deploy failed: %+v\n", err)
 	}
 	fmt.Printf("deployed %s\n", deploy.ID)
 }
