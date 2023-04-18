@@ -14,7 +14,7 @@ var site_path = flag.String("d", "_site", "directory from which to deploy the si
 func main() {
 	flag.Parse()
 
-	var ctx context.Context
+	ctx := context.TODO()
 	n := porcelain.Default
 	var deploy_req porcelain.DeployOptions
 	deploy_req.SiteID = os.Getenv("NETLIFY_SITE_ID")
