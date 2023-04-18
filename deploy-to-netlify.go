@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"flag"
 	"fmt"
 	"os"
@@ -13,13 +14,14 @@ var site_path = flag.String("d", "_site", "directory from which to deploy the si
 func main() {
 	flag.Parse()
 
+	var ctx context.Context
 	n := porcelain.Default
 	var deploy_req porcelain.DeployOptions
 	deploy_req.SiteID = os.Getenv("NETLIFY_SITE_ID")
 	deploy_req.Dir = *site_path
 	deploy_req.IsDraft = false
 
-	deploy, err := n.DeploySite(nil, deploy_req)
+	deploy, err := n.DeploySite(ctx, deploy_req)
 	if err != nil {
 		panic(fmt.Sprintf("deploy failed: %s", err))
 	}
