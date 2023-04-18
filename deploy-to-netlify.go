@@ -38,7 +38,8 @@ func main() {
 
 	deploy, err := n.DeploySite(ctx, deploy_req)
 	if err != nil {
-		panic(fmt.Sprintf("deploy failed: %s", err.Error()))
+		println(err.Error())
+		panic("deploy failed")
 	}
 	fmt.Printf("deployed %s\n", deploy.ID)
 }
