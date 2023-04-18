@@ -2,7 +2,6 @@ package main
 
 import (
 	goctx "context"
-	"errors"
 	"flag"
 	"fmt"
 	"log"
@@ -12,6 +11,7 @@ import (
 	"github.com/go-openapi/strfmt"
 	"github.com/netlify/open-api/v2/go/porcelain"
 	"github.com/netlify/open-api/v2/go/porcelain/context"
+	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
 )
 
