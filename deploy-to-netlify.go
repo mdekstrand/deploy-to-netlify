@@ -5,6 +5,7 @@ import (
 	"errors"
 	"flag"
 	"fmt"
+	"log"
 	"os"
 
 	"github.com/go-openapi/runtime"
@@ -40,8 +41,7 @@ func main() {
 
 	deploy, err := n.DeploySite(ctx, deploy_req)
 	if err != nil {
-		println(err.Error())
-		panic("deploy failed")
+		log.Fatalln(err)
 	}
 	fmt.Printf("deployed %s\n", deploy.ID)
 }
