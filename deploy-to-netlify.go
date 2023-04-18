@@ -30,12 +30,17 @@ func main() {
 	logger.SetLevel(logrus.DebugLevel)
 	flag.Parse()
 
+	site, found := os.LookupEnv("NETLIFY_SITE_ID")
+	if !found {
+		log.Fatalf("no Netlify site ID specified")
+	}
+
 	auth_info := runtime.ClientAuthInfoWriterFunc(add_auth_token)
 	ctx := context.WithAuthInfo(goctx.TODO(), auth_info)
 
 	n := porcelain.Default
 	var deploy_req porcelain.DeployOptions
-	deploy_req.SiteID = os.Getenv("NETLIFY_SITE_ID")
+	deploy_req.SiteID = site
 	deploy_req.Dir = *site_path
 	deploy_req.IsDraft = false
 
