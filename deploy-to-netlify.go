@@ -21,8 +21,7 @@ func add_auth_token(req runtime.ClientRequest, reg strfmt.Registry) error {
 	if !found {
 		return errors.New("no authentication token")
 	}
-	req.SetHeaderParam("Authorization", fmt.Sprintf("Bearer %s", token))
-	return nil
+	return req.SetHeaderParam("Authorization", fmt.Sprintf("Bearer %s", token))
 }
 
 func main() {
