@@ -15,6 +15,7 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
+var verbose = flag.Bool("v", false, "increase logging verbosity")
 var site_path = flag.String("d", "_site", "directory from which to deploy the site")
 
 func add_auth_token(req runtime.ClientRequest, reg strfmt.Registry) error {
@@ -27,12 +28,16 @@ func add_auth_token(req runtime.ClientRequest, reg strfmt.Registry) error {
 
 func main() {
 	logger := logrus.StandardLogger()
-	logger.SetLevel(logrus.DebugLevel)
 	flag.Parse()
+
+	if *verbose {
+		logger.SetLevel(logrus.DebugLevel)
+	}
 
 	site, found := os.LookupEnv("NETLIFY_SITE_ID")
 	if !found {
-		log.Fatalf("no Netlify site ID specified")
+		logger.Error("no Netlify site ID specified")
+		os.Exit(1)
 	}
 
 	auth_info := runtime.ClientAuthInfoWriterFunc(add_auth_token)
