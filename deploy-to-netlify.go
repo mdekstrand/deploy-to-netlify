@@ -11,6 +11,7 @@ import (
 	"github.com/go-openapi/strfmt"
 	"github.com/netlify/open-api/v2/go/porcelain"
 	"github.com/netlify/open-api/v2/go/porcelain/context"
+	"github.com/sirupsen/logrus"
 )
 
 var site_path = flag.String("d", "_site", "directory from which to deploy the site")
@@ -25,6 +26,8 @@ func add_auth_token(req runtime.ClientRequest, reg strfmt.Registry) error {
 }
 
 func main() {
+	logger := logrus.StandardLogger()
+	logger.SetLevel(logrus.DebugLevel)
 	flag.Parse()
 
 	auth_info := runtime.ClientAuthInfoWriterFunc(add_auth_token)
